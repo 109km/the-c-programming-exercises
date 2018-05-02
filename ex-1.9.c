@@ -5,15 +5,35 @@
 
 #include <stdio.h>
 
+#define IN_BLANK 1
+#define OUT_BLANK 0
+
 int main()
 {
   long nc;
   int nBlank, nTab, nNew;
-  int c;
+  int c, state;
 
-  for (nc = 0; (c = getchar()) != EOF;++nc)
+  state = OUT_BLANK;
+
+  for (nc = 0; (c = getchar()) != EOF; ++nc)
   {
-    
+    if (c == ' ')
+    {
+      if (state == IN_BLANK)
+      {
+        c = -1;
+      }
+      state = IN_BLANK;
+    }
+    else
+    {
+      state = OUT_BLANK;
+    }
+
+    if (c > 0)
+    {
+      putchar(c);
+    }
   }
-  
 }
