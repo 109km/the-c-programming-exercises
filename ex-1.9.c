@@ -10,10 +10,21 @@ int main()
   long nc;
   int nBlank, nTab, nNew;
   int c;
+  int lastC;
 
-  for (nc = 0; (c = getchar()) != EOF;++nc)
+  for (nc = 0; (c = getchar()) != EOF; ++nc)
   {
-    
+    if (c != ' ')
+    {
+      putchar(c);
+    }
+    if (c == ' ')
+    {
+      if (lastC != ' ')
+      {
+        putchar(c);
+      }
+    }
+    lastC = c;
   }
-  
 }
