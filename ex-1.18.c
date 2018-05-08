@@ -46,33 +46,24 @@ char trim(char s[], int len)
   int i;
   char c;
   char ns[MAXLINE];
-  int BLANK_START, BLANK_END;
+  int BLANK_START, BLANK_END, BLANK_POS;
 
-  BLANK_START = 0;
-  BLANK_END = 0;
+  BLANK_START = -1;
+  BLANK_END = -1;
 
   for (i = 0; c != '\0' && c != "\n"; ++i)
   {
-    c = s[i];
     if (c == ' ' || c == '\t')
     {
-      // if the first character is blank
-      // mark it.
       if (i == 0)
       {
-        BLANK_START = 1;
+        BLANK_START = 0;
       }
-      if (BLANK_START == 1)
+      else
       {
-        c = "";
+        
       }
     }
-    else
-    {
-      BLANK_START = 0;
-    }
-
-    ns[i] = c;
   }
 
   return ns;
