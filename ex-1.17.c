@@ -17,7 +17,7 @@ int main()
   while ((len = gline(line, MAXLINE)) > 0)
   {
     if (len > LONGLINESIZE)
-      printf("%s\n", line);
+      printf("%s,length is %d\n", line,len);
   }
   return 0;
 }
