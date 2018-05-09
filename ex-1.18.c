@@ -5,66 +5,49 @@
 */
 
 #include <stdio.h>
-#define MAXLINE 1000
-#define LONGLINESIZE 80
-int gline(char line[], int maxline);
+#define MAXQUENE 1000
+
+char line[MAXQUENE];
+int gline();
 
 int main()
 {
-  int len;            // the length of current line
-  char line[MAXLINE]; // store the current line
-
-  // start to get user's input by line
-  while ((len = gline(line, MAXLINE)) > 0)
+  extern char line[];
+  int len, head, tail, inn;
+  while ((len = gline()) > 0)
   {
-    if (len > LONGLINESIZE)
-      printf("%s,length is %d\n", line, len);
-  }
-  return 0;
-}
+    // Record the head position which is not blank
+    for (head = 0; line[head] == ' ' || line[head] == '\t'; head++)
+      ;
+    
+    // Record the tail position which is not blank
+    for (tail = len; line[tail] == ' ' || line[tail] == '\t' || line[tail] == '\n' || line[tail] == '\0'; tail--)
+      ;
 
-// read a line into `s` and return length
-int gline(char s[], int lim)
-{
-  int c, i;
-  for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
-  {
-    s[i] = c;
-  }
-  if (c == '\n')
-  {
-    s[i] = c;
-    ++i;
-  }
-  s[i] = '\0';
-  return i;
-}
-
-// trim
-char trim(char s[], int len)
-{
-  int i;
-  char c;
-  char ns[MAXLINE];
-  int BLANK_START, BLANK_END, BLANK_POS;
-
-  BLANK_START = -1;
-  BLANK_END = -1;
-
-  for (i = 0; c != '\0' && c != "\n"; ++i)
-  {
-    if (c == ' ' || c == '\t')
+    // Outputs the content between `head` and `tail`
+    if (tail - head >= 0)
     {
-      if (i == 0)
-      {
-        BLANK_START = 0;
-      }
-      else
-      {
-        
-      }
+      for (inn = head; inn <= tail; inn++)
+        putchar(line[inn]);
+      
+      putchar('\n');
+      putchar('\0');
     }
   }
+}
 
-  return ns;
+int gline()
+{
+  extern char line[];
+  int c, i;
+
+  for (c = 0, i = 0; (c = getchar()) != EOF && c != '\n'; ++i)
+    line[i] = c;
+
+  if (c == '\n')
+  {
+    line[i] = '\n';
+  }
+  line[++i] = '\0';
+  return i;
 }
