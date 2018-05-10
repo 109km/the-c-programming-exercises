@@ -47,7 +47,8 @@ int gline()
   if (c == '\n')
   {
     line[i] = '\n';
+    ++i;
   }
-  line[++i] = '\0';
+  line[i] = '\0';
   return i;
 }

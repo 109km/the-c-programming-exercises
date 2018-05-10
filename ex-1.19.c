@@ -8,55 +8,53 @@
 #define MAXQUENE 1000
 
 char line[MAXQUENE];
-int gline();
-void reverse(int len);
+int gline(char s[]);
+void reverse(char s[]);
 
 int main()
 {
-  extern char line[];
   int len, i;
-  char rline;
-  while ((len = gline()) > 0)
+  while ((len = gline(line)) > 0)
   {
-    reverse(len);
-    for (i = 0; i < len; i++)
+    reverse(line);
+    for (i = 0; line[i] != '\0' && line[i] != '\n'; ++i)
     {
-      if (line[i] != '\n' && line[i] != '\0')
-        putchar(line[i]);
+      putchar(line[i]);
     }
     putchar('\n');
     putchar('\0');
   }
 }
 
-int gline()
+int gline(char s[])
 {
-  extern char line[];
   int c, i;
   for (c = 0, i = 0; (c = getchar()) != EOF && c != '\n'; ++i)
-    line[i] = c;
+    s[i] = c;
 
   if (c == '\n')
   {
-    line[i] = '\n';
+    s[i] = '\n';
     ++i;
   }
-  line[i] = '\0';
+  s[i] = '\0';
   return i;
 }
 
-void reverse(int len)
+void reverse(char s[])
 {
-  extern char line[];
   int i, j;
-  char tmp[MAXQUENE];
-  for (i = len - 1, j = 0; i >= 0; i--)
+  char tmp;
+  for (i = 0; s[i] != '\0' && s[i] != '\n'; i++)
+    ;
+
+  --i;
+  
+  for (j = 0; j < i; j++)
   {
-    tmp[j] = line[i];
-    ++j;
-  }
-  for (i = 0; i < len; i++)
-  {
-    line[i] = tmp[i];
+    tmp = s[i];
+    s[i] = s[j];
+    s[j] = tmp;
+    --i;
   }
 }
